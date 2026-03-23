@@ -1,0 +1,309 @@
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+
+body { 
+    font-family: 'Georgia', serif; 
+    background: #000; 
+    color: #fff; 
+    overflow-x: hidden;
+    min-height: 100vh;
+    touch-action: manipulation; /* Mobile smooth */
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+/* Stars Background */
+.stars { 
+    position: fixed; 
+    top: 0; left: 0; 
+    width: 100%; height: 100%; 
+    pointer-events: none; 
+    z-index: -1;
+}
+.star { 
+    position: absolute; 
+    background: #fff; 
+    border-radius: 50%; 
+    animation: twinkle 2s infinite alternate; 
+}
+@keyframes twinkle {
+    0% { opacity: 0.3; transform: scale(1); }
+    100% { opacity: 1; transform: scale(1.2); }
+}
+
+/* Page Container */
+.page { 
+    min-height: 100vh; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    padding: 2rem 1rem; 
+    opacity: 0; 
+    transform: translateY(50px); 
+    transition: all 0.8s ease;
+}
+.page.active { 
+    opacity: 1; 
+    transform: translateY(0); 
+}
+
+/* Page 1: Hero */
+.hero h1 { 
+    font-size: clamp(2rem, 8vw, 3.5rem); 
+    text-align: center; 
+    margin-bottom: 1rem; 
+    text-shadow: 0 0 20px #ff69b4;
+    animation: glow 2s infinite alternate;
+}
+@keyframes glow {
+    0% { text-shadow: 0 0 20px #ff69b4; }
+    100% { text-shadow: 0 0 40px #ff1493, 0 0 60px #ff69b4; }
+}
+.hero p { 
+    font-size: clamp(1rem, 4vw, 1.3rem); 
+    text-align: center; 
+    margin-bottom: 3rem; 
+    opacity: 0.9; 
+    max-width: 90%;
+}
+.start-btn { 
+    padding: 18px 40px; 
+    font-size: clamp(1rem, 4vw, 1.2rem); 
+    background: linear-gradient(45deg, #ff69b4, #ff1493); 
+    color: white; 
+    border: none; 
+    border-radius: 50px; 
+    cursor: pointer; 
+    box-shadow: 0 10px 30px rgba(255,105,180,0.4);
+    transition: all 0.3s;
+    min-height: 60px;
+    touch-action: manipulation;
+}
+.start-btn:active { 
+    transform: scale(0.95); 
+}
+
+/* Page 2: Love Letter Diary */
+.diary-container { 
+    background: linear-gradient(145deg, #f9e4e4, #e8c7c7); 
+    width: 100%; 
+    max-width: 700px; 
+    min-height: 60vh; 
+    border-radius: 20px; 
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.5);
+    padding: clamp(20px, 5vw, 40px);
+    position: relative;
+    border: 8px solid #d4a5a5;
+}
+.diary-container::before {
+    content: ''; 
+    position: absolute; 
+    top: 20px; right: 30px; 
+    width: clamp(40px, 8vw, 60px); 
+    height: clamp(40px, 8vw, 60px); 
+    background: #8b4513; 
+    border-radius: 50%; 
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.3);
+}
+.diary-title { 
+    text-align: center; 
+    font-size: clamp(1.5rem, 6vw, 2rem); 
+    color: #8b4513; 
+    margin-bottom: 2rem; 
+    font-family: 'Brush Script MT', cursive;
+}
+#loveLetter { 
+    width: 100%; 
+    height: clamp(250px, 50vh, 350px); 
+    border: 3px dashed #d4a5a5; 
+    border-radius: 15px; 
+    padding: 20px; 
+    font-size: clamp(1rem, 3.5vw, 1.1rem); 
+    font-family: 'Georgia', serif; 
+    background: rgba(255,255,255,0.9);
+    resize: vertical;
+    line-height: 1.6;
+    color: #333;
+    -webkit-appearance: none;
+    appearance: none;
+}
+#loveLetter::placeholder { 
+    color: #999; 
+    font-style: italic;
+}
+.char-count { 
+    text-align: right; 
+    color: #8b4513; 
+    margin-top: 10px; 
+    font-size: clamp(0.8rem, 3vw, 0.9rem);
+    font-weight: bold;
+}
+.next-btn { 
+    margin-top: 2rem; 
+    padding: 15px 30px; 
+    background: #ff69b4; 
+    color: white; 
+    border: none; 
+    border-radius: 25px; 
+    font-size: clamp(1rem, 4vw, 1.1rem); 
+    cursor: pointer;
+    min-height: 55px;
+}
+
+/* Page 3: Drawing Canvas */
+.drawing-container { 
+    max-width: 100%; 
+    width: 100%; 
+    padding: 0 1rem;
+}
+.canvas-title { 
+    font-size: clamp(1.5rem, 6vw, 2rem); 
+    color: #ff69b4; 
+    margin-bottom: 2rem; 
+    text-align: center; 
+}
+#drawingCanvas { 
+    border: 5px solid #ff69b4; 
+    border-radius: 15px; 
+    background: linear-gradient(145deg, #fff8f8, #ffe6e6); 
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    cursor: crosshair;
+    touch-action: none;
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    height: clamp(350px, 50vh, 500px);
+}
+.tools { 
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 10px; 
+    justify-content: center; 
+    margin: 20px 0; 
+    background: rgba(255,255,255,0.1); 
+    padding: 20px; 
+    border-radius: 20px;
+    max-width: 100%;
+    overflow-x: auto;
+}
+.tool-btn { 
+    padding: 12px 16px; 
+    border: none; 
+    border-radius: 20px; 
+    cursor: pointer; 
+    font-size: clamp(0.9rem, 3.5vw, 1rem); 
+    transition: all 0.3s;
+    background: rgba(255,255,255,0.2);
+    color: white;
+    flex-shrink: 0;
+    min-height: 50px;
+}
+.color-btn { 
+    width: clamp(45px, 12vw, 50px); 
+    height: clamp(45px, 12vw, 50px); 
+    border-radius: 50%; 
+    border: 3px solid #fff; 
+    flex-shrink: 0;
+}
+.brush-btn.active, .eraser-btn.active { 
+    transform: scale(1.1); 
+    box-shadow: 0 0 15px rgba(255,255,255,0.8); 
+}
+.clear-btn { 
+    background: #ff4757 !important; 
+    color: white; 
+}
+.share-btn { 
+    padding: 18px 40px; 
+    background: linear-gradient(45deg, #ff69b4, #ff1493); 
+    color: white; 
+    border: none; 
+    border-radius: 30px; 
+    font-size: clamp(1rem, 4vw, 1.2rem); 
+    cursor: pointer; 
+    margin-top: 2rem;
+    min-height: 60px;
+}
+
+/* Page 4: Share */
+.share-container { 
+    text-align: center; 
+    max-width: 90%; 
+    padding: 0 1rem;
+}
+.share-title { 
+    font-size: clamp(1.8rem, 7vw, 2.5rem); 
+    color: #ff69b4; 
+    margin-bottom: 2rem; 
+}
+#shareLink { 
+    width: 100%; 
+    padding: 18px; 
+    font-size: clamp(1rem, 4vw, 1.1rem); 
+    border: 3px solid #ff69b4; 
+    border-radius: 15px; 
+    margin: 20px 0; 
+    background: rgba(255,255,255,0.95); 
+    color: #333;
+    font-family: monospace;
+    letter-spacing: 1px;
+}
+.copy-btn { 
+    padding: 15px 30px; 
+    background: linear-gradient(45deg, #00d4aa, #00b894); 
+    color: white; 
+    border: none; 
+    border-radius: 25px; 
+    cursor: pointer; 
+    font-size: clamp(1rem, 4vw, 1rem);
+    min-height: 55px;
+}
+
+/* MOBILE SPECIFIC */
+@media (max-width: 768px) {
+    body { padding-top: env(safe-area-inset-top); }
+    
+    .page { padding: 1.5rem 1rem; min-height: 100dvh; }
+    
+    .diary-container { 
+        padding: 25px 20px; 
+        margin: 0 -1rem; 
+        border-radius: 0 0 20px 20px;
+        border-left: none;
+        border-right: none;
+    }
+    
+    #loveLetter { 
+        height: 50vh; 
+        max-height: 400px;
+    }
+    
+    .tools { 
+        padding: 15px; 
+        gap: 8px;
+    }
+    
+    .tool-btn { 
+        padding: 10px 12px; 
+        font-size: 0.9rem;
+    }
+    
+    #drawingCanvas { 
+        width: 100%; 
+        height: 50vh; 
+        max-height: 450px;
+    }
+    
+    #shareLink { 
+        font-size: 16px; /* Prevent zoom on iOS */
+    }
+}
+
+@media (max-width: 480px) {
+    .hero h1 { margin-bottom: 0.5rem; }
+    .tools { justify-content: flex-start; padding: 15px 10px; }
+}
